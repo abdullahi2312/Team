@@ -1,10 +1,14 @@
 import Data from "../Xoogta/Data";
 import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../Redux/Reducer/Index";
 
 function View() {
   const { id } = useParams();
   const product = Data.find((item) => item.id === Number(id));
+
+  const dispatch = useDispatch()
 
   if (!product) {
     return (
@@ -76,7 +80,7 @@ function View() {
           </p>
 
           <div className="flex gap-4 mt-8">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition">
+            <button onClick={() => dispatch(addToCart(product))} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition">
               Add To Cart
             </button>
 
