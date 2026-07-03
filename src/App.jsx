@@ -4,6 +4,9 @@ import About from "./Pages/About"
 import Product from "./Pages/Product"
 import Contact from "./Pages/Contact"
 import View from "./Pages/View"
+import Checkout from "./Pages/Checkout"
+import Success from "./Pages/Success"
+import Payment from "./Pages/Payment"
 
 import Login from "./Dash/Login"
 import ProtectedRoute from "./Dash/ProtectedRoute"
@@ -34,6 +37,9 @@ function App() {
   <Route path="/view/:id" element={<View />} />
   <Route path="/cart" element={<Cart />} />
   <Route path="/login" element={<Login />} />
+  <Route path="/checkout" element={<Checkout/>} />
+  <Route path="/success" element={<Success/>} />
+  <Route path="/Payment" element={<Payment/>} />
 
   <Route
     path="/dashboard"

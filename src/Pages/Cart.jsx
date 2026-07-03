@@ -1,20 +1,24 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart } from "../Redux/Reducer/Index";
+import { Link } from "react-router-dom";
 
 function Cart() {
-  const cartItem = useSelector((state) => state.cart.cartItem || []);
+  const dispatch = useDispatch();
+
+  const cartItem = useSelector(
+    (state) => state.cart.cartItem || []
+  );
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-
       {cartItem.length === 0 ? (
         <h2 className="text-center text-gray-500 text-xl">
-          Cart is empty 
+          Cart is empty
         </h2>
       ) : (
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
 
           <div className="md:col-span-2 space-y-5">
-
             {cartItem.map((item, index) => (
               <div
                 key={index}
@@ -27,16 +31,14 @@ function Cart() {
                 />
 
                 <div>
-                  <h1 className="text-xl font-bold">
-                    {item.name}
-                  </h1>
-
-                  <p className="text-gray-500">
-                    ${item.price}
-                  </p>
+                  <h1 className="text-xl font-bold">{item.name}</h1>
+                  <p className="text-gray-500">${item.price}</p>
                 </div>
 
-                <button className="ml-auto bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-600">
+                <button
+                  onClick={() => dispatch(removeFromCart(item.cartId))}
+                  className="ml-auto bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                >
                   Remove
                 </button>
               </div>
@@ -44,7 +46,6 @@ function Cart() {
           </div>
 
           <div className="bg-white p-6 rounded-xl shadow-md h-fit">
-
             <h2 className="text-xl font-bold mb-4">
               Order Summary
             </h2>
@@ -65,12 +66,13 @@ function Cart() {
               </span>
             </p>
 
-            <button className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800">
-              Checkout
-            </button>
+            <Link to="/checkout">
+            <button className="w-full bg-black text-white py-3 rounded-lg">
+             Checkout
+             </button>
+            </Link>
 
           </div>
-
         </div>
       )}
     </div>

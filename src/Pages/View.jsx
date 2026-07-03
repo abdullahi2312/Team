@@ -1,14 +1,16 @@
 import Data from "../Xoogta/Data";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Redux/Reducer/Index";
 
 function View() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const product = Data.find((item) => item.id === Number(id));
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   if (!product) {
     return (
@@ -17,6 +19,22 @@ function View() {
       </div>
     );
   }
+
+  const handleBuyNow = () => {
+    localStorage.setItem("buyNow", JSON.stringify(product));
+    const buyProduct = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+    };
+
+    localStorage.setItem("buyNow", JSON.stringify(buyProduct));
+
+    navigate("/checkout", {
+      state: buyProduct,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 px-6 py-10">
@@ -30,7 +48,7 @@ function View() {
           <img
             src={product.image}
             alt=""
-            className="w-full h-[500px] object-cover "
+            className="w-full h-[500px] object-cover"
           />
         </div>
 
@@ -69,7 +87,6 @@ function View() {
 
           <p className="mt-5 text-gray-700 leading-7">
             Premium quality product with excellent durability and modern design.
-            Perfect for daily use and long-term comfort.
           </p>
 
           <p className="mt-4 text-lg font-semibold">
@@ -80,13 +97,21 @@ function View() {
           </p>
 
           <div className="flex gap-4 mt-8">
-            <button onClick={() => dispatch(addToCart(product))} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition">
+
+           <button
+              onClick={() => dispatch(addToCart(product))}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition"
+            >
               Add To Cart
             </button>
 
-            <button className="bg-black hover:bg-gray-800 text-white px-8 py-3 rounded-xl font-semibold transition">
+            <button
+              onClick={handleBuyNow}
+              className="bg-black hover:bg-gray-800 text-white px-8 py-3 rounded-xl font-semibold transition"
+            >
               Buy Now
             </button>
+
           </div>
         </div>
       </div>
