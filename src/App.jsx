@@ -10,6 +10,7 @@ import Payment from "./Pages/Payment"
 
 import Login from "./Dash/Login"
 import ProtectedRoute from "./Dash/ProtectedRoute"
+import Signup from "./Dash/Singup"
 
 import Dashboards from "./Pages/Dashboards"
 import Overview from "./Desing/Overview"
@@ -40,6 +41,7 @@ function App() {
   <Route path="/checkout" element={<Checkout/>} />
   <Route path="/success" element={<Success/>} />
   <Route path="/Payment" element={<Payment/>} />
+  <Route path="/singup" element={<Signup/>} />
 
   <Route
     path="/dashboard"

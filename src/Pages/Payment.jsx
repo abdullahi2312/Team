@@ -77,7 +77,7 @@ function Payment() {
             onClick={() => setSelected("EVC Plus")}
             className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer ${
               selected === "EVC Plus"
-                ? "border-blue-600 bg-blue-50"
+                ? "border-black bg-blue-50"
                 : ""
             }`}
           >
@@ -89,7 +89,7 @@ function Payment() {
             onClick={() => setSelected("Zaad")}
             className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer ${
               selected === "Zaad"
-                ? "border-blue-600 bg-blue-50"
+                ? "border-black bg-blue-50"
                 : ""
             }`}
           >
@@ -101,7 +101,7 @@ function Payment() {
             onClick={() => setSelected("Cash")}
             className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer ${
               selected === "Cash"
-                ? "border-blue-600 bg-blue-50"
+                ? "border-black bg-blue-50"
                 : ""
             }`}
           >
