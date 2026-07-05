@@ -10,13 +10,9 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const users = [
-<<<<<<< HEAD
-    { email: "xasancabdulaahi132@gmail.com", password: "55443322", role: "admin" },
-    { email: "cabdulaahix099@gmail.com", password: "12345678", role: "user" }
-=======
     {
       email: "xasancabdulaahi132@gmail.com",
-      password: "87654321",
+      password: "55443322",  
       role: "admin",
     },
     {
@@ -24,7 +20,6 @@ function Login() {
       password: "12345678",
       role: "user",
     },
->>>>>>> b169f6708dc9c26f92ab4da901c5d03f99e74960
   ];
 
   const handleLogin = () => {
@@ -86,16 +81,16 @@ function Login() {
         </button>
 
         <div className="mt-6 text-center">
-        <p className="text-gray-400">
-         Don't have an account?{" "}
-       <span
-         onClick={() => navigate("/singup")}
-        className="text-blue-400 font-semibold cursor-pointer"
-        >
-         Sign Up
-       </span>
-      </p>
-     </div>
+          <p className="text-gray-400">
+            Don't have an account?{" "}
+            <span
+              onClick={() => navigate("/signup")}
+              className="text-blue-400 font-semibold cursor-pointer"
+            >
+              Sign Up
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
