@@ -20,6 +20,7 @@ import Customers from "./Desing/Customers"
 import { Routes, Route, useLocation } from "react-router-dom"
 import Data from "./Xoogta/Data"
 import Cart from "./Pages/Cart"
+import Footer from "./component/Footer"
 
 function App() {
   const location = useLocation()
@@ -30,7 +31,7 @@ function App() {
 
       <Routes>
   <Route path="/" element={<Home />} />
-  <Route path="/home" element={<Home />} />
+  {/* <Route path="/home" element={<Home />} /> */}
   <Route path="/about" element={<About />} />
   <Route path="/product" element={<Product Data={Data} />} />
   <Route path="/contact" element={<Contact />} />
@@ -55,6 +56,8 @@ function App() {
     <Route path="customers" element={<Customers />} />
   </Route>
 </Routes>
+
+<Footer/>
     </>
   )
 }

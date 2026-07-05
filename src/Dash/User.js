@@ -1,7 +1,7 @@
 const user = [
   {
     email: "xasancabdulaahi132@gmail.com",
-    password: "87654321",
+    password: "55443322",
     role: "admin"
   },
   {

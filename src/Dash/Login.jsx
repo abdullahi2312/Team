@@ -10,7 +10,7 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const users = [
-    { email: "xasancabdulaahi132@gmail.com", password: "87654321", role: "admin" },
+    { email: "xasancabdulaahi132@gmail.com", password: "55443322", role: "admin" },
     { email: "cabdulaahix099@gmail.com", password: "12345678", role: "user" }
   ];
 
