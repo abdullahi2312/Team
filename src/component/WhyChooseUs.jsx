@@ -42,7 +42,6 @@ import {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
   
-          {/* Title */}
           <div className="text-center mb-14">
             <h2 className="text-4xl font-bold text-gray-800">
               Why Choose My Shop?
@@ -54,7 +53,6 @@ import {
             </p>
           </div>
   
-          {/* Cards */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
   
             {services.map((item) => (

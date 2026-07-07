@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
 import banner from "../assets/about/about-banner.jpg";
+import Data from "../Xoogta/Data";
 
 function AboutHero ()  {
   return (
     <section
-      className="relative h-[450px] bg-cover bg-center pt-24 flex items-center"
+      className="relative h-[650px] bg-cover bg-center pt-24 flex items-center"
       style={{
-        backgroundImage: `url(${banner})`,
+       backgroundImage: `url(${Data[11].image})`,
       }}
     >
-      {/* Overlay */}
       <div className="absolute inset-0 bg-black/60"></div>
 
-      {/* Content */}
       <div className="container mx-auto px-6 relative z-10 text-white">
 
         <h1 className="text-5xl md:text-6xl font-bold mb-5">

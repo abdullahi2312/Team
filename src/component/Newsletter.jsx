@@ -12,9 +12,7 @@ import {
       <section className="bg-blue-600 py-20">
   
         <div className="container mx-auto px-6">
-  
-          {/* Statistics */}
-  
+    
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
   
             <div className="bg-white rounded-2xl p-8 text-center hover:-translate-y-2 duration-300 shadow-lg">
@@ -58,9 +56,7 @@ import {
             </div>
   
           </div>
-  
-          {/* Newsletter */}
-  
+    
           <div className="bg-white rounded-3xl p-12 text-center shadow-xl">
   
             <h2 className="text-4xl font-bold text-gray-800">

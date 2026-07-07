@@ -36,7 +36,6 @@ const AboutTestimonials = () => {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-6">
 
-        {/* Heading */}
         <div className="text-center mb-14">
           <span className="text-blue-600 font-semibold uppercase tracking-widest">
             Testimonials
@@ -51,7 +50,6 @@ const AboutTestimonials = () => {
           </p>
         </div>
 
-        {/* Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
           {testimonials.map((item) => (
@@ -65,7 +63,6 @@ const AboutTestimonials = () => {
                 {item.review}
               </p>
 
-              {/* Rating */}
               <div className="flex justify-center text-yellow-400 mb-6">
                 <FaStar />
                 <FaStar />
@@ -74,7 +71,6 @@ const AboutTestimonials = () => {
                 <FaStar />
               </div>
 
-              {/* Customer */}
               <div className="flex items-center gap-4">
 
                 <img

@@ -37,7 +37,6 @@ function Testimonials () {
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-6">
 
-        {/* Heading */}
         <div className="text-center mb-14">
           <h2 className="text-4xl font-bold text-gray-800">
             What Our Customers Say
@@ -48,7 +47,6 @@ function Testimonials () {
           </p>
         </div>
 
-        {/* Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
           {reviews.map((item) => (

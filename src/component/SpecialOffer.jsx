@@ -10,7 +10,6 @@ function SpecialOffer ()  {
 
         <div className="grid lg:grid-cols-2 gap-10 items-center">
 
-          {/* Left Side */}
           <div className="text-white">
 
             <span className="bg-yellow-400 text-black px-4 py-2 rounded-full font-semibold">
@@ -42,7 +41,6 @@ function SpecialOffer ()  {
 
           </div>
 
-          {/* Right Side */}
           <div className="flex justify-center">
 
             <img

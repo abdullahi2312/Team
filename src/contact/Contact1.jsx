@@ -4,7 +4,7 @@ import { FiMapPin } from "react-icons/fi";
 
 function Contact1() {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 pt-[50px]">
 
       <section className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12">
 

@@ -5,7 +5,7 @@ function Success() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center relative">
+    <div className="min-h-screen bg-gray-100 flex justify-center mt-[50px] items-center relative">
 
       <button
         onClick={() => navigate("/")}

@@ -8,7 +8,6 @@ function OurStory () {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-          {/* Left Image */}
           <div className="overflow-hidden rounded-3xl shadow-xl">
             <img
               src={storyImage}
@@ -17,7 +16,6 @@ function OurStory () {
             />
           </div>
 
-          {/* Right Content */}
           <div>
 
             <span className="text-blue-600 font-semibold uppercase tracking-widest">
@@ -41,7 +39,6 @@ function OurStory () {
               customers can shop with confidence.
             </p>
 
-            {/* Features */}
             <div className="grid sm:grid-cols-2 gap-4 mt-8">
 
               <div className="flex items-center gap-3">
@@ -66,7 +63,6 @@ function OurStory () {
 
             </div>
 
-            {/* Statistics */}
             <div className="grid grid-cols-2 gap-6 mt-10">
 
               <div className="bg-gray-100 rounded-2xl p-6 text-center hover:bg-blue-600 hover:text-white duration-300">
@@ -90,11 +86,6 @@ function OurStory () {
               </div>
 
             </div>
-
-            {/* Button */}
-            <button className="mt-10 bg-blue-600 text-white px-8 py-4 rounded-xl hover:bg-blue-700 duration-300">
-              Learn More
-            </button>
 
           </div>
 

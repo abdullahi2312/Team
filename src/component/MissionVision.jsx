@@ -27,10 +27,8 @@ import {
             </p>
           </div>
   
-          {/* Cards */}
           <div className="grid lg:grid-cols-3 gap-8">
   
-            {/* Mission */}
             <div className="bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-3 hover:shadow-2xl duration-300">
   
               <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-4xl text-blue-600">
@@ -49,7 +47,6 @@ import {
   
             </div>
   
-            {/* Vision */}
             <div className="bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-3 hover:shadow-2xl duration-300">
   
               <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center text-4xl text-green-600">
@@ -68,7 +65,6 @@ import {
   
             </div>
   
-            {/* Values */}
             <div className="bg-white rounded-3xl shadow-lg p-8 hover:-translate-y-3 hover:shadow-2xl duration-300">
   
               <div className="w-20 h-20 rounded-full bg-yellow-100 flex items-center justify-center text-4xl text-yellow-500">

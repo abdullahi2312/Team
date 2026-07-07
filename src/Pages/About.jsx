@@ -17,17 +17,6 @@ function About(){
         <Team/>
         <AboutTestimonials/>
         <CallToAction/>
-     
-
-        
-
-
-
-
-
-
-        
-
   </>
     );
   };

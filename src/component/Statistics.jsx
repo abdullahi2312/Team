@@ -52,7 +52,6 @@ import {
       <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-700">
         <div className="container mx-auto px-6">
   
-          {/* Heading */}
           <div className="text-center text-white mb-14">
             <span className="uppercase tracking-widest text-blue-200">
               Our Achievements
@@ -68,7 +67,6 @@ import {
             </p>
           </div>
   
-          {/* Statistics Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
   
             {stats.map((item) => (

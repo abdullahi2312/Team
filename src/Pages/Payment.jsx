@@ -1,127 +1,503 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { clearCart } from "../Redux/Reducer/Index";
+import { useOrders } from "../Context/Ordercontext";
+import { useProducts } from "../Pages/Productcontext";
 
 import { FaMobileAlt } from "react-icons/fa";
 import { MdPayment } from "react-icons/md";
 import { FaMoneyBillWave } from "react-icons/fa";
 
+
 function Payment() {
+
+
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
-  const order =
+
+
+  const { addOrder } = useOrders();
+
+
+  const { reduceStock } = useProducts();
+
+
+
+
+  const orderData =
     JSON.parse(localStorage.getItem("orderData")) || null;
 
-  const items = order?.items || [];
 
-  const total = order?.total || 0;
+
 
   const [selected, setSelected] = useState("");
 
+
+
+
+
+  if (!orderData) {
+
+    return (
+
+      <div className="min-h-screen flex items-center justify-center">
+
+        <h1 className="text-2xl font-bold">
+
+          Order Not Found
+
+        </h1>
+
+      </div>
+
+    );
+
+  }
+
+
+
+
+
+
+
   const handlePay = () => {
-    if (!order) {
-      alert("No order found");
-      return;
-    }
+
+
 
     if (!selected) {
-      alert("Select payment method");
+
+      alert("Select Payment Method");
+
       return;
+
     }
 
-    setTimeout(() => {
-      localStorage.removeItem("orderData");
 
-      dispatch(clearCart());
 
-      navigate("/success");
-    }, 1500);
+
+
+
+    const newOrder = {
+
+
+      ...orderData,
+
+
+      payment: "Paid",
+
+
+      paymentMethod: selected,
+
+
+      status: "Pending",
+
+
+      paidAt: new Date().toLocaleString(),
+
+
+    };
+
+
+
+
+
+
+
+    addOrder(newOrder);
+
+
+
+
+
+    reduceStock(orderData.items);
+
+
+
+
+
+
+    localStorage.removeItem("orderData");
+
+
+    localStorage.removeItem("buyNow");
+
+
+
+
+
+    dispatch(clearCart());
+
+
+
+
+
+    alert("Payment Successful");
+
+
+
+    navigate("/success");
+
+
+
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+
+    <div className="min-h-screen bg-gray-100 flex justify-center items-center p-6 mt-[60px]">
 
       <div className="bg-white w-full max-w-lg rounded-2xl shadow-lg p-6">
 
         <h1 className="text-3xl font-bold text-center mb-6">
-          Payment Method
+
+          Payment
+
         </h1>
 
-        <div className="bg-gray-100 p-4 rounded-xl mb-5">
+        <div className="bg-gray-100 rounded-xl p-4 mb-5">
+=
+          <h2 className="font-bold mb-3">
 
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="flex justify-between mb-1"
-            >
-              <span>{item.name}</span>
-              <span className="font-bold text-blue-600">
-                ${item.price}
-              </span>
-            </div>
-          ))}
+            Customer Information
 
-          <hr className="my-2" />
+          </h2>
 
-          <p className="flex justify-between font-bold">
-            <span>Total</span>
-            <span>${total}</span>
+          <p>
+            Name : {orderData.customer}
           </p>
+
+          <p>
+            Phone : {orderData.phone}
+          </p>
+
+          <p>
+            Address : {orderData.address}
+          </p>
+
+          <p>
+            Email : {orderData.email}
+          </p>
+
         </div>
+
+        <div className="bg-gray-100 rounded-xl p-4 mb-5">
+
+          <h2 className="font-bold mb-3">
+
+            Products
+
+          </h2>
+
+
+
+
+
+
+
+          {
+
+            orderData.items.map((item,index)=>(
+
+
+
+              <div
+
+                key={index}
+
+                className="flex items-center justify-between mb-4"
+
+              >
+
+
+
+
+                <div className="flex items-center gap-3">
+
+
+
+                  <img
+
+                    src={item.image}
+
+                    alt={item.name}
+
+                    className="w-14 h-14 rounded-lg object-cover"
+
+                  />
+
+
+
+
+
+                  <div>
+
+
+
+                    <h2 className="font-semibold">
+
+                      {item.name}
+
+                    </h2>
+
+
+
+
+                    <p className="text-gray-500">
+
+                      ${item.price}
+
+                    </p>
+
+
+
+                  </div>
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+                <span className="font-bold text-blue-600">
+
+                  ${item.price}
+
+                </span>
+
+
+
+
+
+              </div>
+
+
+
+            ))
+
+
+
+          }
+
+
+
+
+
+
+          <hr className="my-3"/>
+
+
+
+
+
+
+
+          <div className="flex justify-between font-bold text-lg">
+
+
+
+            <span>
+
+              Total
+
+            </span>
+
+
+
+
+
+            <span className="text-blue-600">
+
+              ${orderData.total}
+
+            </span>
+
+
+
+          </div>
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <h2 className="font-bold mb-3">
+
+          Select Payment Method
+
+        </h2>
+
+
+
+
+
+
+
 
         <div className="space-y-3">
 
+
+
+
+
           <div
-            onClick={() => setSelected("EVC Plus")}
-            className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer ${
+
+            onClick={()=>setSelected("EVC Plus")}
+
+            className={`flex items-center gap-3 border rounded-xl p-4 cursor-pointer transition ${
+              
               selected === "EVC Plus"
-                ? "border-black bg-blue-50"
-                : ""
+
+              ? "bg-blue-100 border-blue-600"
+
+              : ""
+
             }`}
+
           >
-            <FaMobileAlt />
-            <span>EVC Plus</span>
+
+
+            <FaMobileAlt/>
+
+            <span>
+
+              EVC Plus
+
+            </span>
+
+
           </div>
 
+
+
+
+
+
+
+
           <div
-            onClick={() => setSelected("Zaad")}
-            className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer ${
+
+            onClick={()=>setSelected("Zaad")}
+
+            className={`flex items-center gap-3 border rounded-xl p-4 cursor-pointer transition ${
+              
               selected === "Zaad"
-                ? "border-black bg-blue-50"
-                : ""
+
+              ? "bg-blue-100 border-blue-600"
+
+              : ""
+
             }`}
+
           >
-            <MdPayment />
-            <span>Zaad</span>
+
+
+            <MdPayment/>
+
+            <span>
+
+              Zaad
+
+            </span>
+
+
           </div>
 
+
+
+
+
+
+
+
           <div
-            onClick={() => setSelected("Cash")}
-            className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer ${
+
+            onClick={()=>setSelected("Cash")}
+
+            className={`flex items-center gap-3 border rounded-xl p-4 cursor-pointer transition ${
+              
               selected === "Cash"
-                ? "border-black bg-blue-50"
-                : ""
+
+              ? "bg-blue-100 border-blue-600"
+
+              : ""
+
             }`}
+
           >
-            <FaMoneyBillWave />
-            <span>Cash on Delivery</span>
+
+
+            <FaMoneyBillWave/>
+
+            <span>
+
+              Cash On Delivery
+
+            </span>
+
+
           </div>
+
+
+
+
+
 
         </div>
 
+
+
+
+
+
+
+
         <button
+
           onClick={handlePay}
-          className="w-full mt-6 bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition font-semibold"
+
+          className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold"
+
         >
+
           Pay Now
+
         </button>
+
+
+
+
+
 
       </div>
 
+
+
     </div>
+
+
+
   );
+
+
+
 }
+
+
 
 export default Payment;

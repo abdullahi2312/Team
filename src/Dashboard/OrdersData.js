@@ -9,13 +9,13 @@ const OrdersData = [
     id: "1002",
     customer: "Fatima Noor",
     total: 120,
-    status: "Delivered"
+    status: "Completed"
   },
   {
     id: "1003",
     customer: "Mohamed Hassan",
     total: 430,
-    status: "Processing"
+    status: "Cancelled"
   }
 ]
 

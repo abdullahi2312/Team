@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearCart } from "../Redux/Reducer/Index";
+import { useUser } from "../Context/Usercontext";
 
 function Checkout() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { user } = useUser();
 
   const cartItem = useSelector(
     (state) => state.cart.cartItem || []
@@ -15,7 +15,7 @@ function Checkout() {
   const product =
     JSON.parse(localStorage.getItem("buyNow")) || null;
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState(user?.name || "");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
@@ -28,21 +28,37 @@ function Checkout() {
 
   const handleOrder = () => {
     if (!name || !phone || !address) {
-      alert("Fadlan buuxi form-ka");
+      alert("Please fill all fields");
       return;
     }
 
     if (items.length === 0) {
-      alert("No items found");
+      alert("No products found");
       return;
     }
 
     const orderData = {
-      name,
+      id: Date.now(),
+
+      email: user?.email,
+
+      customer: name,
+
       phone,
+
       address,
+
       items,
+
       total,
+
+      payment: "Not Paid",
+
+      paymentMethod: "",
+
+      status: "Pending",
+
+      date: new Date().toLocaleString(),
     };
 
     localStorage.setItem(
@@ -52,66 +68,91 @@ function Checkout() {
 
     localStorage.removeItem("buyNow");
 
-    dispatch(clearCart());
-
     navigate("/payment");
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-lg">
+    <div className="min-h-screen bg-gray-100 p-6 mt-[80px]">
+      <div className="max-w-xl mx-auto bg-white rounded-xl shadow-lg p-6">
 
-        <h1 className="text-3xl font-bold mb-6 text-center">
+        <h1 className="text-3xl font-bold text-center mb-6">
           Checkout
         </h1>
 
-        <div className="bg-gray-100 p-4 rounded mb-4">
-          {items.map((item, index) => (
-            <div key={index} className="flex justify-between">
-              <p className="font-semibold">
-                {item.name}
-              </p>
+        <div className="bg-gray-100 rounded-lg p-4 mb-5">
 
-              <p className="text-blue-600 font-bold">
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between mb-4"
+            >
+              <div className="flex items-center gap-3">
+
+                <img
+                  src={item.image}
+                  alt=""
+                  className="w-16 h-16 object-cover rounded-lg"
+                />
+
+                <div>
+                  <h2 className="font-semibold">
+                    {item.name}
+                  </h2>
+
+                  <p className="text-gray-500">
+                    ${item.price}
+                  </p>
+                </div>
+
+              </div>
+
+              <span className="font-bold text-blue-600">
                 ${item.price}
-              </p>
+              </span>
             </div>
           ))}
 
-          <hr className="my-2" />
+          <hr className="my-3" />
 
-          <p className="flex justify-between font-bold">
-            <span>Total:</span>
-            <span>${total}</span>
-          </p>
+          <div className="flex justify-between font-bold text-lg">
+            <span>Total</span>
+
+            <span className="text-blue-600">
+              ${total}
+            </span>
+          </div>
+
         </div>
 
         <input
-          className="w-full border p-3 mb-3 rounded"
+          type="text"
           placeholder="Full Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="w-full border rounded-lg p-3 mb-3 outline-none"
         />
 
         <input
-          className="w-full border p-3 mb-3 rounded"
+          type="text"
           placeholder="Phone Number"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
+          className="w-full border rounded-lg p-3 mb-3 outline-none"
         />
 
         <input
-          className="w-full border p-3 mb-3 rounded"
+          type="text"
           placeholder="Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+          className="w-full border rounded-lg p-3 mb-5 outline-none"
         />
 
         <button
           onClick={handleOrder}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
         >
-          Place Order
+          Continue Payment
         </button>
 
       </div>

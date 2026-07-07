@@ -43,7 +43,6 @@ import {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
   
-          {/* Heading */}
           <div className="text-center mb-14">
             <span className="text-blue-600 font-semibold uppercase tracking-widest">
               Our Team
@@ -59,7 +58,6 @@ import {
             </p>
           </div>
   
-          {/* Team Cards */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
   
             {teamMembers.map((member) => (
@@ -67,7 +65,6 @@ import {
                 key={member.id}
                 className="bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-3 hover:shadow-2xl transition duration-300"
               >
-                {/* Image */}
                 <div className="overflow-hidden">
                   <img
                     src={member.image}
@@ -76,7 +73,6 @@ import {
                   />
                 </div>
   
-                {/* Content */}
                 <div className="p-6 text-center">
   
                   <h3 className="text-2xl font-bold text-gray-800">
@@ -87,7 +83,6 @@ import {
                     {member.role}
                   </p>
   
-                  {/* Social Icons */}
                   <div className="flex justify-center gap-4 mt-6">
   
                     <a

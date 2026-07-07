@@ -1,16 +1,17 @@
-import Data from "../Xoogta/Data";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Redux/Reducer/Index";
+import { useProducts } from "../Pages/Productcontext";
 
 function View() {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const product = Data.find((item) => item.id === Number(id));
-
   const dispatch = useDispatch();
+
+  const { products } = useProducts();
+
+  const product = products.find((item) => item.id === Number(id));
 
   if (!product) {
     return (
@@ -21,7 +22,6 @@ function View() {
   }
 
   const handleBuyNow = () => {
-    localStorage.setItem("buyNow", JSON.stringify(product));
     const buyProduct = {
       id: product.id,
       name: product.name,
@@ -37,17 +37,19 @@ function View() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 px-6 py-10">
+    <div className="min-h-screen bg-gray-100 px-6 py-10 mt-[50px]">
       <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-8 grid md:grid-cols-2 gap-10">
 
         <div className="relative overflow-hidden rounded-xl shadow-lg">
-          <span className="absolute top-4 left-4 z-10 bg-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">
-            -{product.discount}%
-          </span>
+          {product.discount && (
+            <span className="absolute top-4 left-4 z-10 bg-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">
+              -{product.discount}%
+            </span>
+          )}
 
           <img
             src={product.image}
-            alt=""
+            alt={product.name}
             className="w-full h-[500px] object-cover"
           />
         </div>
@@ -63,26 +65,30 @@ function View() {
 
           <div className="flex items-center gap-4 mt-5">
             <h2 className="text-3xl font-bold text-blue-600">
-              ${product.price}.00
+              ${product.price}
             </h2>
 
-            <span className="line-through text-gray-400 text-xl">
-              ${product.oldPrice}.00
-            </span>
+            {product.oldPrice && (
+              <span className="line-through text-gray-400 text-xl">
+                ${product.oldPrice}
+              </span>
+            )}
           </div>
 
           <div className="mt-4">
-            <p className="text-yellow-500 text-sm flex gap-2">
+            <div className="flex gap-1 text-yellow-500">
               <FaStar />
               <FaStar />
               <FaStar />
               <FaStar />
               <FaStar />
-            </p>
+            </div>
 
-            <p className="text-gray-600 mt-1">
-              {product.reviews} Reviews
-            </p>
+            {product.reviews && (
+              <p className="text-gray-600 mt-1">
+                {product.reviews} Reviews
+              </p>
+            )}
           </div>
 
           <p className="mt-5 text-gray-700 leading-7">
@@ -97,8 +103,7 @@ function View() {
           </p>
 
           <div className="flex gap-4 mt-8">
-
-           <button
+            <button
               onClick={() => dispatch(addToCart(product))}
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition"
             >
@@ -111,7 +116,6 @@ function View() {
             >
               Buy Now
             </button>
-
           </div>
         </div>
       </div>
