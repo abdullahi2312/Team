@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import banner from "../assets/about/about-banner.jpg";
 import Data from "../Xoogta/Data";
 
 function AboutHero ()  {

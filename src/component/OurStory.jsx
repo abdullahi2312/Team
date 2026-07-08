@@ -1,5 +1,4 @@
 import { FaCheckCircle } from "react-icons/fa";
-import storyImage from "../assets/about/about-story.jpg";
 
 function OurStory () {
   return (
@@ -10,7 +9,7 @@ function OurStory () {
 
           <div className="overflow-hidden rounded-3xl shadow-xl">
             <img
-              src={storyImage}
+              src="https://i.pinimg.com/736x/18/b4/12/18b412dc36a7a1f813df1c70c9f2caca.jpg"
               alt="Our Story"
               className="w-full h-full object-cover hover:scale-105 duration-500"
             />

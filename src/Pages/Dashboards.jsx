@@ -9,8 +9,9 @@ import {
   FaBars,
   FaTimes,
   FaStore,
+  FaUserShield,
+  FaSignOutAlt,
 } from "react-icons/fa";
-
 
 function Dashboards() {
 
@@ -18,284 +19,227 @@ function Dashboards() {
 
   const navigate = useNavigate();
 
+  // Logged in admin
+  const admin = JSON.parse(localStorage.getItem("admin"));
+
+  const role = admin?.role || "";
+
+  const isSuperAdmin = role === "Super Admin";
 
   const navClass = ({ isActive }) =>
     isActive
-      ? "flex items-center gap-3 bg-blue-700 text-yellow-300 px-4 py-3 rounded-lg font-semibold cursor-default"
+      ? "flex items-center gap-3 bg-blue-700 text-yellow-300 px-4 py-3 rounded-lg font-semibold"
       : "flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-600 hover:text-yellow-300 hover:translate-x-1 transition-all duration-300";
 
+  const handleLogout = () => {
+
+    localStorage.removeItem("admin");
+    localStorage.removeItem("role");
+
+    navigate("/login");
+
+  };
 
   return (
 
     <div className="flex min-h-screen bg-gray-100">
 
-
-      {/* Mobile Menu Button */}
-
       <button
-
         onClick={() => setMenuOpen(true)}
-
-        className="lg:hidden fixed top-5 right-5 z-50 bg-blue-600 text-white p-3 rounded-lg shadow-lg"
-
+        className="lg:hidden fixed top-5 right-5 z-50 bg-blue-600 text-white p-3 rounded-lg shadow"
       >
-
-        <FaBars size={20}/>
-
+        <FaBars />
       </button>
-
-
-
-
-
-      {/* Overlay */}
 
       {
         menuOpen && (
-
           <div
-
             className="fixed inset-0 bg-black/40 z-40 lg:hidden"
-
             onClick={() => setMenuOpen(false)}
-
-          >
-
-          </div>
-
+          ></div>
         )
       }
 
-
-
-
-
-      {/* Sidebar */}
-
       <aside
-
-        className={`fixed lg:static top-0 left-0 h-screen w-72 bg-blue-600 text-white shadow-2xl transform transition-transform duration-300 z-50
+        className={`fixed lg:static top-0 left-0 h-screen w-72 bg-blue-600 text-white shadow-2xl z-50 transform transition-transform duration-300
 
         ${
           menuOpen
-          ? "translate-x-0"
-          : "-translate-x-full"
+            ? "translate-x-0"
+            : "-translate-x-full"
         }
 
         lg:translate-x-0`}
-
       >
-
-
 
         <div className="flex items-center justify-between p-6 border-b border-blue-500">
 
-
           <div
-
-            onClick={() => navigate("/login")}
-
-            className="flex items-center gap-2 cursor-pointer hover:text-yellow-300 transition"
-
+            onClick={() => navigate("/dashboard")}
+            className="flex items-center gap-2 cursor-pointer"
           >
 
-            <FaStore className="text-yellow-300 text-2xl"/>
-
+            <FaStore className="text-yellow-300 text-2xl" />
 
             <h1 className="text-2xl font-bold">
-
               Admin Panel
-
             </h1>
-
 
           </div>
 
-
-
-
-
           <button
-
             onClick={() => setMenuOpen(false)}
-
-            className="lg:hidden text-2xl hover:text-yellow-300 transition"
-
+            className="lg:hidden text-2xl"
           >
-
-            <FaTimes/>
-
+            <FaTimes />
           </button>
 
-
-
         </div>
-
-
-
-
 
         <nav className="mt-6 px-4">
 
-
           <ul className="space-y-3">
 
+            {/* Dashboard */}
+            {isSuperAdmin && (
 
-            <li>
+              <li>
 
-              <NavLink
+                <NavLink
+                  to="/dashboard"
+                  className={navClass}
+                  onClick={() => setMenuOpen(false)}
+                >
 
-                to="/dashboard"
+                  <FaTachometerAlt />
 
-                className={navClass}
+                  Dashboard
 
-                onClick={() => setMenuOpen(false)}
+                </NavLink>
 
-              >
+              </li>
 
-                <FaTachometerAlt/>
+            )}
 
-                Dashboard
+            {/* Products */}
+            {(isSuperAdmin || role === "Product Manager") && (
 
+              <li>
 
-              </NavLink>
+                <NavLink
+                  to="/dashboard/products"
+                  className={navClass}
+                  onClick={() => setMenuOpen(false)}
+                >
 
+                  <FaBoxOpen />
 
-            </li>
+                  Products
 
+                </NavLink>
 
+              </li>
 
-            <li>
+            )}
 
-              <NavLink
+            {/* Orders */}
+            {(isSuperAdmin || role === "Order Manager") && (
 
-                to="/dashboard/products"
+              <li>
 
-                className={navClass}
+                <NavLink
+                  to="/dashboard/orders"
+                  className={navClass}
+                  onClick={() => setMenuOpen(false)}
+                >
 
-                onClick={() => setMenuOpen(false)}
+                  <FaShoppingCart />
 
-              >
+                  Orders
 
-                <FaBoxOpen/>
+                </NavLink>
 
-                Products
+              </li>
 
+            )}
 
-              </NavLink>
+            {/* Customers */}
+            {isSuperAdmin && (
 
+              <li>
 
-            </li>
+                <NavLink
+                  to="/dashboard/customers"
+                  className={navClass}
+                  onClick={() => setMenuOpen(false)}
+                >
 
-            
-            <li>
+                  <FaUsers />
 
-              <NavLink
+                  Customers
 
-                to="/dashboard/orders"
+                </NavLink>
 
-                className={navClass}
+              </li>
 
-                onClick={() => setMenuOpen(false)}
+            )}
 
-              >
+            {/* Admin Register */}
+            {isSuperAdmin && (
 
-                <FaShoppingCart/>
+              <li>
 
-                Orders
+                <NavLink
+                  to="/dashboard/adminregister"
+                  className={navClass}
+                  onClick={() => setMenuOpen(false)}
+                >
 
+                  <FaUserShield />
 
-              </NavLink>
+                  Admin Register
 
+                </NavLink>
 
-            </li>
+              </li>
 
-
-
-
-
-            <li>
-
-              <NavLink
-
-                to="/dashboard/customers"
-
-                className={navClass}
-
-                onClick={() => setMenuOpen(false)}
-
-              >
-
-                <FaUsers/>
-
-                Customers
-
-
-              </NavLink>
-
-
-            </li>
-
-
-
-          </ul>
-
+            )}
+                      </ul>
 
         </nav>
 
-
-
-
-
-
         <div className="absolute bottom-6 left-0 w-full px-6">
 
+          <button
+            onClick={handleLogout}
+            className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg flex items-center justify-center gap-2 font-semibold mb-4"
+          >
+            <FaSignOutAlt />
+
+            Logout
+
+          </button>
 
           <div className="border-t border-blue-500 pt-4 text-center text-sm text-blue-100">
 
-
             © 2026 Admin Dashboard
-
 
           </div>
 
-
         </div>
-
-
-
-
 
       </aside>
 
-
-
-
-
-
-
-      {/* Main Content */}
-
-
-      <main className="flex-1 lg:ml-0 p-6 lg:p-8 w-full">
-
+      <main className="flex-1 p-6 lg:p-8 w-full">
 
         <Outlet />
 
-
       </main>
-
-
-
-
 
     </div>
 
-
   );
 
-
 }
-
 
 export default Dashboards;

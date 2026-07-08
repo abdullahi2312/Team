@@ -1,7 +1,5 @@
-
 import { FaArrowRight } from "react-icons/fa";
-import banner from "../assets/banner/banner.jpg";
-import banner1 from "../assets/banner/banner1.jpg";
+import { useProducts } from "../Pages/Productcontext";
 
 function SpecialOffer ()  {
   return (
@@ -44,18 +42,13 @@ function SpecialOffer ()  {
           <div className="flex justify-center">
 
             <img
-              src={banner}
+              src="https://i.pinimg.com/736x/29/a0/61/29a06195f7dfa3829149377e7deeefa5.jpg"
               alt="Special Offer"
-              className="w-full max-w-lg hover:scale-105 transition duration-500"
+              className="w-full max-w-lg hover:scale-105 rounded-[10px] transition duration-500"
             />
             <div>
 
-<img
-              src={banner1}
-              alt="Special Offer"
-              className="w-full max-w-lg hover:scale-105 transition duration-500"
-            />
-</div>
+</div> 
 
           </div>
 

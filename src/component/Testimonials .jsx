@@ -1,14 +1,10 @@
 
 import { FaStar, FaQuoteLeft } from "react-icons/fa";
 
-import customer1 from "../assets/customers/customer1.jpg";
-import customer2 from "../assets/customers/customer2.jpg";
-import customer3 from "../assets/customers/customer3.jpg";
-
 const reviews = [
   {
     id: 1,
-    image: customer1,
+    image: "https://i.pinimg.com/736x/90/1e/9c/901e9c722dfc110924863b61ae7d64a2.jpg",
     name: "John Smith",
     job: "Web Developer",
     review:
@@ -16,7 +12,7 @@ const reviews = [
   },
   {
     id: 2,
-    image: customer2,
+    image: "https://i.pinimg.com/736x/0c/22/90/0c2290cf168019e6cbfe5cb31187a471.jpg",
     name: "Sarah Johnson",
     job: "UI Designer",
     review:
@@ -24,7 +20,7 @@ const reviews = [
   },
   {
     id: 3,
-    image: customer3,
+    image: "https://i.pinimg.com/1200x/1a/74/88/1a7488fbdcca5c85187e100ef6b4afc6.jpg",
     name: "Michael Brown",
     job: "Business Owner",
     review:

@@ -5,34 +5,29 @@ import {
     FaLinkedinIn,
     FaInstagram,
   } from "react-icons/fa";
-  
-  import team1 from "../assets/team/team1.jpg";
-  import team2 from "../assets/team/team2.jpg";
-  import team3 from "../assets/team/team3.jpg";
-  import team4 from "../assets/team/team4.jpg";
-  
+    
   const teamMembers = [
     {
       id: 1,
-      image: team1,
+      image: "https://i.pinimg.com/736x/8d/72/e5/8d72e5242c6791054361585691091ce5.jpg",
       name: "Ahmed Ali",
       role: "Founder & CEO",
     },
     {
       id: 2,
-      image: team2,
+      image: "https://i.pinimg.com/736x/97/00/39/970039811e175ebcdc498513345b5df2.jpg",
       name: "Amina Hassan",
       role: "UI/UX Designer",
     },
     {
       id: 3,
-      image: team3,
+      image: "https://i.pinimg.com/1200x/60/13/5f/60135f8f78ae18503b07c4a8c279d739.jpg",
       name: "Mohamed Yusuf",
       role: "Frontend Developer",
     },
     {
       id: 4,
-      image: team4,
+      image: "https://i.pinimg.com/736x/d9/94/14/d99414c0748622881f0c0dc63a0d3d60.jpg",
       name: "Fatima Omar",
       role: "Marketing Manager",
     },
