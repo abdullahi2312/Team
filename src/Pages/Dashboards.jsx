@@ -75,8 +75,7 @@ function Dashboards() {
         <div className="flex items-center justify-between p-6 border-b border-blue-500">
 
           <div
-            onClick={() => navigate("/dashboard")}
-            className="flex items-center gap-2 cursor-pointer"
+            className="flex items-center gap-2 "
           >
 
             <FaStore className="text-yellow-300 text-2xl" />
@@ -164,7 +163,7 @@ function Dashboards() {
             )}
 
             {/* Customers */}
-            {isSuperAdmin && (
+           {(isSuperAdmin || role === "Customer Manager") && (
 
               <li>
 
@@ -174,7 +173,7 @@ function Dashboards() {
                   onClick={() => setMenuOpen(false)}
                 >
 
-                  <FaUsers />
+                  <FaUserShield />
 
                   Customers
 
@@ -204,6 +203,27 @@ function Dashboards() {
               </li>
 
             )}
+
+            {(isSuperAdmin || role === "Message Manager") && (
+
+              <li>
+
+                <NavLink
+                  to="/dashboard/messages"
+                  className={navClass}
+                  onClick={() => setMenuOpen(false)}
+                >
+
+                  <FaUserShield />
+
+                  Message
+
+                </NavLink>
+
+              </li>
+
+            )}
+
                       </ul>
 
         </nav>

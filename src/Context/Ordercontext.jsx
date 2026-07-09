@@ -10,11 +10,21 @@ export function OrderProvider({ children }) {
 
   const [orders, setOrders] = useState(() => {
 
-    const savedOrders = localStorage.getItem("orders");
+    try {
 
-    return savedOrders
-      ? JSON.parse(savedOrders)
-      : [];
+      const savedOrders = localStorage.getItem("orders");
+
+      return savedOrders
+        ? JSON.parse(savedOrders)
+        : [];
+
+    } catch(error){
+
+      console.log("Orders loading error:", error);
+
+      return [];
+
+    }
 
   });
 
@@ -23,16 +33,18 @@ export function OrderProvider({ children }) {
 
 
 
-  // Save orders to localStorage
+  // Save orders automatically
 
-  useEffect(() => {
+  useEffect(()=>{
+
 
     localStorage.setItem(
       "orders",
       JSON.stringify(orders)
     );
 
-  }, [orders]);
+
+  },[orders]);
 
 
 
@@ -40,16 +52,37 @@ export function OrderProvider({ children }) {
 
 
 
-  // Add new order
 
-  const addOrder = (order) => {
+  // Add New Order
+
+  const addOrder = (order)=>{
 
 
-    setOrders((prev) => [
+    const newOrder = {
+
+      id:
+      order.id ||
+      Date.now(),
+
+      status:
+      order.status ||
+      "Pending",
+
+      payment:
+      order.payment ||
+      "Not Received",
+
+      ...order
+
+    };
+
+
+
+    setOrders((prev)=>[
 
       ...prev,
 
-      order
+      newOrder
 
     ]);
 
@@ -62,18 +95,22 @@ export function OrderProvider({ children }) {
 
 
 
-  // Update order
-
-  const updateOrder = (id, data) => {
 
 
-    setOrders((prev) =>
+  // Update Order Information
 
-      prev.map((order) =>
+  const updateOrder = (id,data)=>{
+
+
+    setOrders((prev)=>
+
+      prev.map((order)=>
 
         order.id === id
 
-        ? {
+        ?
+
+        {
 
           ...order,
 
@@ -81,7 +118,9 @@ export function OrderProvider({ children }) {
 
         }
 
-        : order
+        :
+
+        order
 
       )
 
@@ -97,14 +136,55 @@ export function OrderProvider({ children }) {
 
 
 
-  // Delete single order
 
-  const deleteOrder = (id) => {
+  // Update Payment Only
+
+  const updatePaymentStatus = (id,payment)=>{
 
 
-    setOrders((prev) =>
+    setOrders((prev)=>
 
-      prev.filter((order) =>
+      prev.map((order)=>
+
+        order.id === id
+
+        ?
+
+        {
+
+          ...order,
+
+          payment
+
+        }
+
+        :
+
+        order
+
+      )
+
+    );
+
+
+  };
+
+
+
+
+
+
+
+
+
+  // Delete One Order
+
+  const deleteOrder = (id)=>{
+
+
+    setOrders((prev)=>
+
+      prev.filter((order)=>
 
         order.id !== id
 
@@ -122,13 +202,13 @@ export function OrderProvider({ children }) {
 
 
 
-  // Delete all orders
 
-  const clearOrders = () => {
+  // Delete All Orders
+
+  const clearOrders = ()=>{
 
 
     setOrders([]);
-
 
     localStorage.removeItem("orders");
 
@@ -142,8 +222,8 @@ export function OrderProvider({ children }) {
 
 
 
-  return (
 
+  return (
 
     <OrderContext.Provider
 
@@ -155,20 +235,25 @@ export function OrderProvider({ children }) {
 
         updateOrder,
 
+        updatePaymentStatus,
+
         deleteOrder,
 
-        clearOrders,
+        clearOrders
 
       }}
 
     >
 
+
       {children}
+
 
     </OrderContext.Provider>
 
 
   );
+
 
 }
 
@@ -178,10 +263,24 @@ export function OrderProvider({ children }) {
 
 
 
-export function useOrders() {
 
 
-  return useContext(OrderContext);
+export function useOrders(){
+
+
+  const context = useContext(OrderContext);
+
+
+  if(!context){
+
+    throw new Error(
+      "useOrders must be used inside OrderProvider"
+    );
+
+  }
+
+
+  return context;
 
 
 }

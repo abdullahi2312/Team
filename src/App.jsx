@@ -23,6 +23,7 @@ import Products from "./Desing/Products";
 import Orders from "./Desing/Orders";
 import Customers from "./Desing/Customers";
 import AdminRegister from "./Pages/AdminRegister";
+import Messages from "./Desing/Messages";
 
 import ScrollToTop from "./Scroll/ScrollToTop";
 
@@ -118,6 +119,15 @@ function App() {
             }
           />
 
+          <Route
+          path="messages"
+          element={
+            <ProtectedRoute allowedRoles={["Message Manager"]}>
+              <Messages />
+            </ProtectedRoute>
+          }
+        />
+        
         </Route>
 
       </Routes>

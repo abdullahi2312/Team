@@ -12,44 +12,24 @@ import Store from "./Redux/store/Store.js";
 import { ProductProvider } from "./Pages/Productcontext.jsx";
 import { OrderProvider } from "./Context/Ordercontext.jsx";
 import { UserProvider } from "./Context/Usercontext.jsx";
-
+import { MessageProvider } from "./Context/MessageProvider.jsx";
 
 
 createRoot(document.getElementById("root")).render(
 
-  <StrictMode>
-
-    <Provider store={Store}>
-
-
-      <UserProvider>
-
-
-        <OrderProvider>
-
-
-          <ProductProvider>
-
-
+ <StrictMode>
+  <Provider store={Store}>
+    <UserProvider>
+      <OrderProvider>
+        <ProductProvider>
+          <MessageProvider>
             <BrowserRouter>
-
               <App />
-
             </BrowserRouter>
-
-
-          </ProductProvider>
-
-
-        </OrderProvider>
-
-
-      </UserProvider>
-
-
-    </Provider>
-
-
-  </StrictMode>
-
+          </MessageProvider>
+        </ProductProvider>
+      </OrderProvider>
+    </UserProvider>
+  </Provider>
+</StrictMode>
 );

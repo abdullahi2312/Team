@@ -2,7 +2,6 @@ import { FiPhone, FiMail, FiMapPin } from "react-icons/fi";
 import { useState } from "react";
 import { useMessages } from "../Context/MessageProvider";
 
-
 function Contact1(){
 
 

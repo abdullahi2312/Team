@@ -6,7 +6,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 
-import { useMessages } from "../Context/MessageContext";
+import { useMessages } from "../Context/MessageProvider";
 
 
 function Messages(){

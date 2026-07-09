@@ -2,7 +2,6 @@ import Data from "../Xoogta/Data";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Redux/Reducer/Index";
 import {
-  FaHeart,
   FaShoppingCart,
   FaStar,
 } from "react-icons/fa";
@@ -41,9 +40,7 @@ const FeaturedProducts = () => {
                   -{item.discount}%
                 </span>
 
-                <button className="absolute top-4 right-4 bg-white p-2 rounded-full shadow hover:bg-red-500 hover:text-white duration-300">
-                  <FaHeart />
-                </button>
+          
               </div>
 
               <div className="p-5">

@@ -113,7 +113,7 @@ function Payment() {
 
 
 
-    reduceStock(orderData.items);
+    reduceStock(orderData.products);
 
 
 
@@ -158,7 +158,7 @@ function Payment() {
         </h1>
 
         <div className="bg-gray-100 rounded-xl p-4 mb-5">
-=
+
           <h2 className="font-bold mb-3">
 
             Customer Information
@@ -199,7 +199,7 @@ function Payment() {
 
           {
 
-            orderData.items.map((item,index)=>(
+           (orderData.products || []).map((item,index)=>(
 
 
 
@@ -247,7 +247,14 @@ function Payment() {
 
                     <p className="text-gray-500">
 
-                      ${item.price}
+                    Price: ${item.price}
+
+                    </p>
+
+
+                    <p className="text-gray-500">
+
+                    Quantity: {item.quantity || 1}
 
                     </p>
 
@@ -268,7 +275,11 @@ function Payment() {
 
                 <span className="font-bold text-blue-600">
 
-                  ${item.price}
+                $
+                {
+                Number(item.price) *
+                Number(item.quantity || 1)
+                }
 
                 </span>
 

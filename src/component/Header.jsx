@@ -15,377 +15,323 @@ import { useUser } from "../Context/Usercontext";
 function Header() {
 
 
-  const cartItem = useSelector(
-    (state) => state.cart.cartItem || []
-  );
+const navigate = useNavigate();
 
+const { user } = useUser();
 
-  const { user } = useUser();
+const [menuOpen,setMenuOpen] = useState(false);
 
 
-  const navigate = useNavigate();
 
+const cartItem = useSelector(
+(state)=>state.cart.cartItem || []
+);
 
-  const [menuOpen, setMenuOpen] = useState(false);
 
 
+const cartCount = cartItem.reduce(
+(sum,item)=>sum + item.quantity,
+0
+);
 
-  const navClass = ({ isActive }) =>
-    isActive
-      ? "text-yellow-300 border-b-2 border-yellow-300 pb-1 transition-all duration-300"
-      : "hover:text-yellow-300 hover:scale-105 transition-all duration-300";
 
 
+const navClass = ({isActive})=>
 
-  return (
+isActive
 
-    <header className="fixed top-0 left-0 w-full bg-blue-600 text-white shadow-lg z-50">
+?
+"text-yellow-300 border-b-2 border-yellow-300 pb-1"
 
+:
 
-      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+"hover:text-yellow-300 transition";
 
 
 
-        <NavLink
-          to="/"
-          className="flex items-center gap-2 text-2xl font-bold"
-        >
 
-          <FaStore className="text-white text-3xl" />
 
-          <span>
-            Online Shop
-          </span>
+const closeMenu=()=>setMenuOpen(false);
 
-        </NavLink>
 
 
 
 
+return (
 
-        <nav className="hidden md:block">
 
+<header className="fixed top-0 left-0 w-full bg-blue-600 text-white shadow-lg z-50">
 
-          <ul className="flex items-center gap-8 font-medium">
 
+<div className="container mx-auto px-6 py-4 flex justify-between items-center">
 
 
-            <li>
-              <NavLink to="/" className={navClass}>
-                Home
-              </NavLink>
-            </li>
 
+<NavLink
+to="/"
+className="flex items-center gap-2 text-2xl font-bold"
+>
 
+<FaStore/>
 
-            <li>
-              <NavLink to="/about" className={navClass}>
-                About
-              </NavLink>
-            </li>
+Online Shop
 
+</NavLink>
 
 
-            <li>
-              <NavLink to="/product" className={navClass}>
-                Product
-              </NavLink>
-            </li>
 
 
 
-            <li>
-              <NavLink to="/contact" className={navClass}>
-                Contact
-              </NavLink>
-            </li>
 
+<nav className="hidden md:block">
 
+<ul className="flex items-center gap-8">
 
 
+<li>
+<NavLink to="/" className={navClass}>
+Home
+</NavLink>
+</li>
 
-            <li>
 
-              <NavLink
-                to="/cart"
-                className="relative hover:text-yellow-300 transition"
-              >
+<li>
+<NavLink to="/about" className={navClass}>
+About
+</NavLink>
+</li>
 
-                <FaShoppingCart size={24}/>
 
+<li>
+<NavLink to="/product" className={navClass}>
+Product
+</NavLink>
+</li>
 
-                <span className="absolute -top-2 -right-3 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold">
 
-                  {cartItem.length}
+<li>
+<NavLink to="/contact" className={navClass}>
+Contact
+</NavLink>
+</li>
 
-                </span>
 
 
-              </NavLink>
+<li>
 
-            </li>
+<NavLink
+to="/cart"
+className="relative"
+>
 
+<FaShoppingCart size={24}/>
 
+<span className="absolute -top-3 -right-3 bg-red-500 rounded-full w-5 h-5 text-xs flex items-center justify-center">
 
+{cartCount}
 
+</span>
 
-            <li>
+</NavLink>
 
+</li>
 
-              {
-                user ? (
 
 
-                  <button
 
-                    onClick={()=>navigate("/profile")}
 
-                    className="flex items-center gap-2 hover:text-yellow-300 transition"
+<li>
 
-                  >
+{
+user ?
 
-                    <FaUser/>
 
-                    <span>
-                      {user.name}
-                    </span>
+<button
+onClick={()=>navigate("/profile")}
+className="flex items-center gap-2 hover:text-yellow-300"
+>
 
+<FaUser/>
 
-                  </button>
+{user.name}
 
+</button>
 
-                )
 
-                :
+:
 
+<NavLink to="/login">
 
-                (
+<FaUser size={20}/>
 
-                  <NavLink
+</NavLink>
 
-                    to="/login"
+}
 
-                    className="text-xl hover:text-yellow-300 transition"
 
-                  >
+</li>
 
-                    <FaUser/>
 
-                  </NavLink>
+</ul>
 
+</nav>
 
-                )
 
 
-              }
 
 
-            </li>
 
+<button
 
+onClick={()=>setMenuOpen(!menuOpen)}
 
+className="md:hidden text-2xl"
 
-          </ul>
+>
 
+{
+menuOpen ? <FaTimes/>:<FaBars/>
+}
 
-        </nav>
+</button>
 
 
 
+</div>
 
 
 
-        <button
 
-          className="md:hidden text-2xl"
 
-          onClick={()=>setMenuOpen(!menuOpen)}
 
-        >
 
-          {
-            menuOpen 
-            ? <FaTimes/>
-            : <FaBars/>
-          }
 
 
-        </button>
+{
+menuOpen &&
 
+<div className="md:hidden bg-blue-700 py-6">
 
 
-      </div>
+<ul className="flex flex-col items-center gap-6 text-lg">
 
 
+<li>
+<NavLink onClick={closeMenu} to="/" className={navClass}>
+Home
+</NavLink>
+</li>
 
 
 
+<li>
+<NavLink onClick={closeMenu} to="/about" className={navClass}>
+About
+</NavLink>
+</li>
 
 
-      <div
 
-        className={`md:hidden bg-blue-700 overflow-hidden transition-all duration-500 ${
-          menuOpen ? "max-h-[500px] py-5" : "max-h-0"
-        }`}
 
-      >
+<li>
+<NavLink onClick={closeMenu} to="/product" className={navClass}>
+Product
+</NavLink>
+</li>
 
 
 
-        <ul className="flex flex-col items-center gap-6 text-lg font-medium">
+<li>
+<NavLink onClick={closeMenu} to="/contact" className={navClass}>
+Contact
+</NavLink>
+</li>
 
 
 
-          <li>
-            <NavLink
-              to="/"
-              className={navClass}
-              onClick={()=>setMenuOpen(false)}
-            >
-              Home
-            </NavLink>
-          </li>
 
 
+<li>
 
-          <li>
-            <NavLink
-              to="/about"
-              className={navClass}
-              onClick={()=>setMenuOpen(false)}
-            >
-              About
-            </NavLink>
-          </li>
+<NavLink
+onClick={closeMenu}
+to="/cart"
+className="relative"
+>
 
+<FaShoppingCart size={24}/>
 
+<span className="absolute -top-3 -right-3 bg-red-500 rounded-full w-5 h-5 text-xs flex justify-center items-center">
 
-          <li>
-            <NavLink
-              to="/product"
-              className={navClass}
-              onClick={()=>setMenuOpen(false)}
-            >
-              Product
-            </NavLink>
-          </li>
+{cartCount}
 
+</span>
 
 
-          <li>
-            <NavLink
-              to="/contact"
-              className={navClass}
-              onClick={()=>setMenuOpen(false)}
-            >
-              Contact
-            </NavLink>
-          </li>
+</NavLink>
 
+</li>
 
 
 
 
-          <li>
 
-            <NavLink
-              to="/cart"
-              className="relative hover:text-yellow-300"
-              onClick={()=>setMenuOpen(false)}
-            >
+<li>
 
-              <FaShoppingCart size={24}/>
+{
+user ?
 
-              <span className="absolute -top-2 -right-3 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold">
+<button
 
-                {cartItem.length}
+onClick={()=>{
 
-              </span>
+navigate("/profile");
+closeMenu();
 
+}}
 
-            </NavLink>
+className="flex items-center gap-2"
 
+>
 
-          </li>
+<FaUser/>
 
+{user.name}
 
+</button>
 
 
+:
 
-          <li>
+<NavLink
+onClick={closeMenu}
+to="/login"
+>
 
+<FaUser/>
 
-          {
+</NavLink>
 
-            user ?
+}
 
 
-            (
+</li>
 
-              <button
 
-                onClick={()=>{
 
-                  navigate("/profile");
+</ul>
 
-                  setMenuOpen(false);
 
-                }}
+</div>
 
-                className="flex items-center gap-2 hover:text-yellow-300"
+}
 
-              >
 
-                <FaUser/>
 
-                {user.name}
+</header>
 
 
-              </button>
-
-            )
-
-
-            :
-
-
-            (
-
-              <NavLink
-
-                to="/login"
-
-                onClick={()=>setMenuOpen(false)}
-
-                className="text-xl hover:text-yellow-300"
-
-              >
-
-                <FaUser/>
-
-              </NavLink>
-
-            )
-
-
-          }
-
-
-          </li>
-
-
-
-        </ul>
-
-
-      </div>
-
-
-
-
-    </header>
-
-  );
+);
 
 
 }
