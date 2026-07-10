@@ -506,14 +506,6 @@ Choose Role
 
 </option>
 
-
-<option value="Customer Manager">
-
-Customer Manager
-
-</option>
-
-
 <option value="Message Manager">
 
 Message Manager
@@ -799,12 +791,6 @@ role:e.target.value
 className="w-full border p-3 rounded-lg mb-5"
 
 >
-
-
-<option value="Customer Manager">
-
-customer Manager
-</option>
 
 
 <option value="Message Manager">

@@ -1,5 +1,6 @@
 import { FaArrowRight } from "react-icons/fa";
 import { useProducts } from "../Pages/Productcontext";
+import { Link } from "react-router-dom";
 
 function SpecialOffer ()  {
   return (
@@ -27,6 +28,7 @@ function SpecialOffer ()  {
               Shop your favorite products today and save up to 50%.
             </p>
 
+            <Link to="/product">
             <button
               className="mt-8 bg-white text-blue-700 px-8 py-4 rounded-xl
               font-bold flex items-center gap-3
@@ -36,6 +38,7 @@ function SpecialOffer ()  {
               Shop Now
               <FaArrowRight />
             </button>
+            </Link>
 
           </div>
 
