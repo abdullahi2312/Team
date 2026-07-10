@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../Context/Usercontext";
+import { useProducts } from "./Productcontext";
 
 function Checkout() {
 
 const navigate = useNavigate();
 const { user } = useUser();
+const { canFulfillOrder } = useProducts();
 
 const cartItem = useSelector(
 (state)=>state.cart.cartItem || []
@@ -42,6 +44,11 @@ return;
 
 if(items.length===0){
 alert("No products found");
+return;
+}
+
+if(!canFulfillOrder(items)){
+alert("Coming soon — one or more products are out of stock or unavailable in the requested quantity.");
 return;
 }
 

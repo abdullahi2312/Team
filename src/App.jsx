@@ -24,10 +24,23 @@ import Orders from "./Desing/Orders";
 import Customers from "./Desing/Customers";
 import AdminRegister from "./Pages/AdminRegister";
 import Messages from "./Desing/Messages";
+import AdminProfile from "./Dash/AdminProfile";
 
 import ScrollToTop from "./Scroll/ScrollToTop";
 
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+
+function DashboardIndex() {
+  const role = JSON.parse(localStorage.getItem("admin"))?.role;
+  const rolePages = {
+    "Product Manager": "/dashboard/products",
+    "Order Manager": "/dashboard/orders",
+    "Customer Manager": "/dashboard/customers",
+    "Message Manager": "/dashboard/messages",
+  };
+
+  return rolePages[role] ? <Navigate to={rolePages[role]} replace /> : <Overview />;
+}
 
 function App() {
 
@@ -79,7 +92,7 @@ function App() {
           }
         >
 
-          <Route index element={<Overview />} />
+          <Route index element={<DashboardIndex />} />
                     {/* Products */}
           <Route
             path="products"
@@ -104,7 +117,7 @@ function App() {
           <Route
             path="customers"
             element={
-              <ProtectedRoute allowedRoles={["Super Admin"]}>
+              <ProtectedRoute allowedRoles={["Super Admin", "Customer Manager"]}>
                 <Customers />
               </ProtectedRoute>
             }
@@ -127,6 +140,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+          <Route path="profile" element={<AdminProfile />} />
         
         </Route>
 

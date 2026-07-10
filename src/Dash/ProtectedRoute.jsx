@@ -18,19 +18,14 @@ function ProtectedRoute({ children, allowedRoles = [] }) {
     allowedRoles.length > 0 &&
     !allowedRoles.includes(admin.role)
   ) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="bg-white p-10 rounded-xl shadow text-center">
-          <h1 className="text-3xl font-bold text-red-600">
-            Access Denied
-          </h1>
+    const rolePages = {
+      "Product Manager": "/dashboard/products",
+      "Order Manager": "/dashboard/orders",
+      "Customer Manager": "/dashboard/customers",
+      "Message Manager": "/dashboard/messages",
+    };
 
-          <p className="mt-3 text-gray-600">
-            You don't have permission to access this page.
-          </p>
-        </div>
-      </div>
-    );
+    return <Navigate to={rolePages[admin.role] || "/dashboard"} replace />;
   }
 
   return children;

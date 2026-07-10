@@ -76,10 +76,11 @@ const FeaturedProducts = () => {
 
                 <button
                   onClick={() => dispatch(addToCart(item))}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition"
+                  disabled={Number(item.stock || 0) <= 0}
+                  className={`w-full py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition ${Number(item.stock || 0) <= 0 ? "cursor-not-allowed bg-slate-200 text-slate-500" : "bg-blue-600 hover:bg-blue-700 text-white"}`}
                 >
                   <FaShoppingCart />
-                  Add To Cart
+                  {Number(item.stock || 0) <= 0 ? "Coming Soon" : "Add To Cart"}
                 </button>
               </div>
             </div>

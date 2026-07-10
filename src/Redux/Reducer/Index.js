@@ -22,6 +22,10 @@ const cartSlice = createSlice({
 
     addToCart:(state,action)=>{
 
+      const availableStock = Number(action.payload.stock || 0);
+
+      if (availableStock <= 0) return;
+
 
       const item = state.cartItem.find(
         product => product.id === action.payload.id
@@ -29,6 +33,8 @@ const cartSlice = createSlice({
 
 
       if(item){
+
+        if (item.quantity >= Number(item.stock ?? availableStock)) return;
 
         item.quantity += 1;
 
@@ -45,6 +51,8 @@ const cartSlice = createSlice({
           price:action.payload.price,
 
           image:action.payload.image,
+
+          stock: availableStock,
 
           quantity:1,
 
@@ -96,7 +104,7 @@ const cartSlice = createSlice({
       );
 
 
-      if(item){
+      if(item && (item.stock === undefined || item.quantity < Number(item.stock))){
 
         item.quantity++;
 

@@ -1,97 +1,26 @@
 import { motion } from "framer-motion";
-import {
-  FaArrowRight,
-  FaTruck,
-  FaUndo,
-  FaShieldAlt,
-} from "react-icons/fa";
+import { FaArrowRight, FaTruck, FaUndo, FaShieldAlt, FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../Pages/Productcontext";
 
 function Hero() {
-  const navigate = useNavigate();
-  const { products } = useProducts();
-
-  return (
-    <section className="bg-gradient-to-r from-slate-50 to-blue-50 min-h-screen pt-24 flex items-center">
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-          <motion.div
-            initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold">
-              Best Online Store
-            </span>
-
-            <h1 className="text-5xl lg:text-7xl font-bold mt-6 leading-tight">
-              Discover Amazing
-              <span className="text-blue-600 block">Products</span>
-            </h1>
-
-            <p className="text-gray-600 mt-6 text-lg">
-              Find the best products at affordable prices. Quality products with
-              fast delivery.
-            </p>
-
-            <div className="flex gap-4 mt-8 flex-wrap">
-              <button
-                onClick={() => navigate("/product")}
-                className="bg-blue-600 text-white px-8 py-4 rounded-xl flex items-center gap-2 hover:bg-blue-700 hover:scale-105 transition"
-              >
-                Shop Now
-                <FaArrowRight />
-              </button>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 mt-12">
-              <div className="flex items-center gap-3">
-                <FaTruck className="text-blue-600 text-2xl" />
-                <div>
-                  <h4 className="font-semibold">Free Shipping</h4>
-                  <p className="text-sm text-gray-500">Orders over $50</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <FaUndo className="text-blue-600 text-2xl" />
-                <div>
-                  <h4 className="font-semibold">30 Days Return</h4>
-                  <p className="text-sm text-gray-500">Money Back</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <FaShieldAlt className="text-blue-600 text-2xl" />
-                <div>
-                  <h4 className="font-semibold">Secure Payment</h4>
-                  <p className="text-sm text-gray-500">100% Secure</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ x: 100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="relative"
-          >
-            <div className="absolute inset-0 bg-blue-200 rounded-full blur-3xl opacity-40"></div>
-
-            {products.length > 0 && (
-              <img
-                src={products[1].image}
-                alt=""
-                className="relative z-10 rounded-3xl shadow-2xl hover:scale-105 transition duration-500"
-              />
-            )}
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
+  const navigate = useNavigate(); const { products } = useProducts(); const image = products[1]?.image || products[0]?.image;
+  return <section className="relative isolate overflow-hidden bg-[#f7f8ff] pb-16 pt-32 sm:pb-20 sm:pt-40">
+    <div className="absolute -left-36 top-0 -z-10 h-96 w-96 rounded-full bg-indigo-200/45 blur-3xl" /><div className="absolute right-0 top-20 -z-10 h-80 w-80 rounded-full bg-violet-200/40 blur-3xl" />
+    <div className="site-container grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr]">
+      <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .65 }}>
+        <span className="eyebrow"><FaStar className="text-amber-400" /> Curated for everyday life</span>
+        <h1 className="mt-6 max-w-2xl text-5xl font-black leading-[1.04] tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">Things you’ll love, <span className="text-indigo-600">delivered simply.</span></h1>
+        <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">Discover quality essentials, standout finds and trusted brands in one delightful shopping experience.</p>
+        <div className="mt-9 flex flex-wrap gap-3"><button onClick={() => navigate("/product")} className="inline-flex items-center gap-3 rounded-xl bg-indigo-600 px-6 py-4 font-bold text-white shadow-lg shadow-indigo-200 transition hover:-translate-y-0.5 hover:bg-indigo-700">Explore collection <FaArrowRight /></button><button onClick={() => navigate("/about")} className="rounded-xl border border-slate-200 bg-white px-6 py-4 font-bold text-slate-800 transition hover:border-indigo-200 hover:text-indigo-600">Our story</button></div>
+        <div className="mt-12 grid max-w-2xl gap-4 sm:grid-cols-3">{[[FaTruck,"Fast delivery","On every order"],[FaUndo,"Easy returns","30-day guarantee"],[FaShieldAlt,"Safe checkout","Payments protected"]].map(([Icon,title,sub]) => <div key={title} className="flex items-center gap-3"><span className="grid h-11 w-11 place-items-center rounded-xl bg-white text-indigo-600 shadow-sm"><Icon /></span><div><p className="text-sm font-bold text-slate-900">{title}</p><p className="text-xs text-slate-500">{sub}</p></div></div>)}</div>
+      </motion.div>
+      <motion.div initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .7, delay: .1 }} className="relative mx-auto w-full max-w-lg">
+        <div className="absolute inset-8 rounded-[3rem] bg-indigo-600/10 rotate-6" />
+        <div className="relative overflow-hidden rounded-[2rem] border-8 border-white bg-slate-200 shadow-2xl shadow-indigo-200/60">{image ? <img src={image} alt="Featured product" className="aspect-[4/5] w-full object-cover" /> : <div className="aspect-[4/5]" />}</div>
+        <div className="absolute -bottom-5 -left-4 rounded-2xl bg-white p-4 shadow-xl"><p className="text-xs font-semibold text-slate-500">Trusted by shoppers</p><p className="mt-1 text-lg font-black text-slate-950">4.9 <span className="text-amber-400">★★★★★</span></p></div>
+      </motion.div>
+    </div>
+  </section>;
 }
-
 export default Hero;

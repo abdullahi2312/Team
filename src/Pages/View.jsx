@@ -27,6 +27,8 @@ function View() {
     (item) => item.id === Number(id)
   );
 
+  const isOutOfStock = Number(product?.stock || 0) <= 0;
+
 
 
 
@@ -50,6 +52,11 @@ function View() {
 
 
   const handleBuyNow = () => {
+
+    if (isOutOfStock) {
+      alert("Coming soon — this product is currently out of stock.");
+      return;
+    }
 
 
     const buyProduct = {
@@ -272,9 +279,9 @@ function View() {
             Stock:
 
 
-            <span className="text-green-600 ml-2">
+            <span className={`${isOutOfStock ? "text-amber-600" : "text-green-600"} ml-2`}>
 
-              {product.stock} Available
+              {isOutOfStock ? "Coming soon" : `${product.stock} Available`}
 
             </span>
 
@@ -296,12 +303,12 @@ function View() {
             <button
 
               onClick={() => dispatch(addToCart(product))}
-
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold"
+              disabled={isOutOfStock}
+              className={`px-8 py-3 rounded-xl font-semibold ${isOutOfStock ? "cursor-not-allowed bg-slate-300 text-slate-600" : "bg-blue-600 text-white hover:bg-blue-700"}`}
 
             >
 
-              Add To Cart
+              {isOutOfStock ? "Coming Soon" : "Add To Cart"}
 
             </button>
 
@@ -336,12 +343,12 @@ function View() {
             <button
 
               onClick={handleBuyNow}
-
-              className="bg-black hover:bg-gray-800 text-white px-8 py-3 rounded-xl font-semibold"
+              disabled={isOutOfStock}
+              className={`px-8 py-3 rounded-xl font-semibold ${isOutOfStock ? "cursor-not-allowed bg-slate-300 text-slate-600" : "bg-black text-white hover:bg-gray-800"}`}
 
             >
 
-              Buy Now
+              {isOutOfStock ? "Coming Soon" : "Buy Now"}
 
             </button>
 

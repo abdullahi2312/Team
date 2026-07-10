@@ -69,7 +69,14 @@ function Login() {
 
       localStorage.setItem("role", "admin");
 
-      navigate("/dashboard");
+      const rolePages = {
+        "Product Manager": "/dashboard/products",
+        "Order Manager": "/dashboard/orders",
+        "Customer Manager": "/dashboard/customers",
+        "Message Manager": "/dashboard/messages",
+      };
+
+      navigate(rolePages[foundAdmin.role] || "/dashboard");
 
       return;
     }

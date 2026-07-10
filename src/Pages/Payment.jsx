@@ -23,7 +23,7 @@ function Payment() {
   const { addOrder } = useOrders();
 
 
-  const { reduceStock } = useProducts();
+  const { reduceStock, canFulfillOrder } = useProducts();
 
 
 
@@ -74,6 +74,11 @@ function Payment() {
 
       return;
 
+    }
+
+    if (!canFulfillOrder(orderData.products || [])) {
+      alert("Coming soon — one or more products are no longer in stock.");
+      return;
     }
 
 

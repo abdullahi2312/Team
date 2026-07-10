@@ -86,9 +86,10 @@ export function ProductProvider({ children }) {
 
             ...product,
 
-            stock:
-              Number(product.stock || 0) -
-              1,
+            stock: Math.max(
+              0,
+              Number(product.stock || 0) - Number(boughtProduct.quantity || 1)
+            ),
 
           };
 
@@ -103,6 +104,11 @@ export function ProductProvider({ children }) {
     );
 
   };
+
+  const canFulfillOrder = (items) => items.every((item) => {
+    const product = products.find((productItem) => productItem.id === item.id);
+    return product && Number(product.stock || 0) >= Number(item.quantity || 1);
+  });
 
 
 
@@ -123,6 +129,7 @@ export function ProductProvider({ children }) {
         updateProduct,
 
         reduceStock,
+        canFulfillOrder,
 
       }}
 
